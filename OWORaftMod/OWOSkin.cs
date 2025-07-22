@@ -130,7 +130,7 @@ namespace OWORaftMod
 
         public void LOG(String msg)
         {
-            Debug.Log(msg);
+            Debug.Log($"[OWO_Raft] : {msg}");
         }
 
         #region Feel

@@ -1,6 +1,8 @@
-using RaftModLoader;
-﻿using UnityEngine;
+using HarmonyLib;
 using HMLLibrary;
+using RaftModLoader;
+using System.Reflection;
+﻿using UnityEngine;
 
 namespace OWORaftMod
 {
@@ -11,6 +13,9 @@ namespace OWORaftMod
         public void Start()
         {
             owoSkin = new OWOSkin();
+
+            var harmony = new Harmony("owo.patch.Raft");
+            harmony.PatchAll();
         }
 
         public void OnModUnload()
