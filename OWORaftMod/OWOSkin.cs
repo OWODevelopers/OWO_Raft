@@ -10,11 +10,11 @@ namespace OWORaftMod
 {
     public class OWOSkin
     {
-        private string owoPath = "";
+        private string owoPath = "\\mods\\OWO";
         public bool suitEnabled = false;
         public bool isGameUnpaused = true;
 
-        public Dictionary<String, Sensation> FeedbackMap = new Dictionary<String, Sensation>();
+        public Dictionary<string, Sensation> FeedbackMap = new Dictionary<string, Sensation>();
         private bool fallingIsActive;
         private bool wallSlidingIsActive;
         private bool chargingIsActive;
@@ -32,6 +32,7 @@ namespace OWORaftMod
         private void RegisterAllSensationsFiles()
         {
             string configPath = Directory.GetCurrentDirectory() + owoPath;
+
             DirectoryInfo d = new DirectoryInfo(configPath);
             FileInfo[] Files = d.GetFiles("*.owo", SearchOption.AllDirectories);
             for (int i = 0; i < Files.Length; i++)
@@ -59,7 +60,7 @@ namespace OWORaftMod
         {
             LOG("Initializing OWO skin");
 
-            var gameAuth = GameAuth.Create(AllBakedSensations()).WithId("90027016");
+            var gameAuth = GameAuth.Create(AllBakedSensations()).WithId("31239533");
             LOG("Auth generated");
 
             OWO.Configure(gameAuth);
@@ -74,7 +75,7 @@ namespace OWORaftMod
             {
                 suitEnabled = true;
                 LOG("OWO suit connected.");
-                Feel("Charm Equip", 1);
+                Feel("Equip", 2);
             }
             if (!suitEnabled)
                 LOG("OWO is not enabled?!?!");

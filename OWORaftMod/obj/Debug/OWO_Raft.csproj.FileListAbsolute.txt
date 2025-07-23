@@ -108,3 +108,7 @@ C:\Users\devel\Documents\RaftModding\OWORaftMod\OWORaftMod\obj\Debug\OWO_Raft.cs
 C:\Users\devel\Documents\RaftModding\OWORaftMod\OWORaftMod\obj\Debug\OWO_Raft.csproj.Up2Date
 C:\Users\devel\Documents\RaftModding\OWORaftMod\OWORaftMod\obj\Debug\OWORaftMod.dll
 C:\Users\devel\Documents\RaftModding\OWORaftMod\OWORaftMod\obj\Debug\OWORaftMod.pdb
+C:\Program Files (x86)\Steam\steamapps\common\Raft\mods\OWORaftMod.dll
+C:\Program Files (x86)\Steam\steamapps\common\Raft\mods\OWORaftMod.pdb
+C:\bin\OWORaftMod.dll
+C:\bin\OWORaftMod.pdb
