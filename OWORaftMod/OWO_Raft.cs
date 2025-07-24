@@ -88,8 +88,21 @@ namespace OWORaftMod
             [HarmonyPostfix]
             public static void Postfix()
             {
-                owoSkin.LOG($"WORLD LOADED!");
                 owoSkin.canReceiveSensations = true;
+            }
+        }
+
+        [HarmonyPatch(typeof(Raft_Network), "LoadScene")]
+        public class Patch_LoadScene
+        {
+            [HarmonyPostfix]
+            public static void Postfix(string sceneName)
+            {
+                if (sceneName == "MainMenuScene")
+                {
+                    owoSkin.StopAllHapticFeedback();
+                    owoSkin.canReceiveSensations = false;
+                }
             }
         }
 
