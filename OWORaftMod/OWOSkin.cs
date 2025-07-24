@@ -310,6 +310,7 @@ namespace OWORaftMod
             StopHook();
             StopDrowning();
             StopSwimming();
+            StopBow();
             OWO.Stop();
         }
 
