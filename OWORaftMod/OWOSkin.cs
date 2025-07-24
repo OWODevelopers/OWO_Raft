@@ -270,7 +270,7 @@ namespace OWORaftMod
             while (swimmingIsActive)
             {
                 Feel("Swimming", 0);
-                await Task.Delay(300);
+                await Task.Delay(1000);
             }
         }
 
