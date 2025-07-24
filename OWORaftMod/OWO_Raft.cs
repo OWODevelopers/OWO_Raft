@@ -37,7 +37,7 @@ namespace OWORaftMod
             {
                 if (animation == PlayerAnimation.Trigger_Jump)
                 {
-                    owoSkin.LOG($"JUMPED!");
+                    owoSkin.Feel("Jump");
                 }
             }
         }
@@ -50,7 +50,7 @@ namespace OWORaftMod
             {
                 if (__instance.controllerType == ControllerType.Water)
                     return;
-                owoSkin.LOG($"RESET JUMP!. Controller: {__instance.controllerType}");
+                owoSkin.Feel("Landing");
             }
         }
 
@@ -63,7 +63,14 @@ namespace OWORaftMod
                 owoSkin.LOG($"Controller: {newType}");
                 switch (newType)
                 {
-                    //TODO: Swimming controller indicates player is swimming
+                    case ControllerType.Water:
+                        owoSkin.Feel("Splash");
+                        owoSkin.StartSwimming();
+                        break;
+
+                    case ControllerType.Ground:
+                        owoSkin.StopSwimming();
+                        break;
                 }
             }
         }
@@ -74,7 +81,7 @@ namespace OWORaftMod
             [HarmonyPostfix]
             public static void Postfix(Vector3 position, Vector3 direction, float force)
             {
-                owoSkin.LOG($"PADDLE!");
+                owoSkin.Feel("Paddeling");
             }
         }
 
@@ -121,19 +128,12 @@ namespace OWORaftMod
                 switch (damageInflictorEntityType)
                 {
                     case EntityType.None:
-                        break;
                     case EntityType.Player:
                         break;
                     case EntityType.Enemy:
-                        owoSkin.LOG("ENEMY DAMAGE POST");
-                        owoSkin.Feel("Hurt", 1);
-                        break;
                     case EntityType.FallDamage:
-                        owoSkin.LOG("FALL DAMAGE POST");
-                        owoSkin.Feel("Hurt", 1);
-                        break;
                     case EntityType.Environment:
-                        owoSkin.LOG("ENVIRONMENT DAMAGE POST");
+                        owoSkin.Feel("Hurt", 1);
                         break;
                 }
             }
@@ -145,7 +145,8 @@ namespace OWORaftMod
             [HarmonyPostfix]
             public static void Postfix(PlayerStats __instance)
             {
-                owoSkin.LOG("DEATH POST");
+                owoSkin.StopAllHapticFeedback();
+                owoSkin.Feel("Death", 4);
             }
         }
 
@@ -157,7 +158,7 @@ namespace OWORaftMod
             {
                 if (edibleItem != null)
                 {
-                    owoSkin.LOG($"Consuming item {edibleItem.UniqueName}");
+                    owoSkin.Feel("Consume", 2);
                 }
             }
         }
@@ -171,12 +172,11 @@ namespace OWORaftMod
             {
                 if (__instance.Value <= 0)
                 {
-                    owoSkin.LOG($"YOU ARE DROWNING!!");
-                    //owoSkin.StartDrowning();
+                    owoSkin.StartDrowning();
                 }
                 else
                 {
-                    //owoSkin.StopDrowning();
+                    owoSkin.StopDrowning();
                 }
             }
         }
@@ -195,7 +195,7 @@ namespace OWORaftMod
                 if (__instance.selectedRecipeBox.ItemToCraft == null)
                     return;
 
-                owoSkin.LOG($"CRAFTED {__instance.selectedRecipeBox.ItemToCraft}!");
+                owoSkin.Feel("Craft", 2);
             }
         }
 
@@ -209,8 +209,7 @@ namespace OWORaftMod
             public static void Postfix(PickupItem_Networked item)
             {
                 //if(__instance.playerNetwork.isLocalPlayer)
-
-                owoSkin.LOG("YOU COLLECTED WITH HOOK!");
+                owoSkin.StartHook();
             }
         }
 
@@ -226,8 +225,7 @@ namespace OWORaftMod
                 }
 
                 //if(__instance.playerNetwork.isLocalPlayer)
-
-                owoSkin.LOG("PICKED UP ITEM!");
+                owoSkin.Feel("Pickup Item", 2);
             }
         }
         #endregion
@@ -242,7 +240,7 @@ namespace OWORaftMod
             {
                 //if(__instance.playerNetwork.isLocalPlayer)
 
-                owoSkin.LOG("START MELEE ATTACK!");
+                owoSkin.Feel("Melee", 2);
             }
         }
 
@@ -256,7 +254,7 @@ namespace OWORaftMod
                 if (entity == null)
                     return;
 
-                owoSkin.LOG("HIT!");
+                owoSkin.Feel("Melee Hit", 2);
             }
         }
 
@@ -267,8 +265,7 @@ namespace OWORaftMod
             public static void Postfix()
             {
                 //if(__instance.playerNetwork.isLocalPlayer)
-                owoSkin.LOG("START CHARGING BOW!");
-                //owoSkin.StartChargingBow();
+                owoSkin.StartBow();
             }
         }
 
@@ -279,8 +276,8 @@ namespace OWORaftMod
             public static void Postfix()
             {
                 //if(__instance.playerNetwork.isLocalPlayer)
-                owoSkin.LOG("RELEASE HAND!");
-                //owoSkin.StopChargingBow();
+                owoSkin.StopBow();
+                owoSkin.Feel("Bow Release", 2);
             }
         }
 
@@ -295,8 +292,7 @@ namespace OWORaftMod
             public static void Postfix(Hook __instance)
             {
                 //if(__instance.playerNetwork.isLocalPlayer)
-
-                owoSkin.LOG("THROW HOOK!");
+                owoSkin.Feel("Hook Throw", 2);
             }
         }
 
@@ -307,8 +303,7 @@ namespace OWORaftMod
             public static void Postfix()
             {
                 //if(__instance.playerNetwork.isLocalPlayer)
-
-                owoSkin.LOG("RESET HOOK!");
+                owoSkin.StopHook();
             }
         }
 
@@ -323,8 +318,7 @@ namespace OWORaftMod
             public static void Postfix()
             {
                 //if(__instance.playerNetwork.isLocalPlayer)
-
-                owoSkin.LOG("FISHING ROD THROW!");
+                owoSkin.Feel("Rod Throw", 2);
             }
         }
 
@@ -335,9 +329,7 @@ namespace OWORaftMod
             public static void Postfix()
             {
                 //if(__instance.playerNetwork.isLocalPlayer)
-
-                //owoSkin.StartPullingFish();
-                owoSkin.LOG("FISHING GRAB BAIT!");
+                owoSkin.StartFishing();
             }
         }
 
@@ -348,9 +340,7 @@ namespace OWORaftMod
             public static void Postfix()
             {
                 //if(__instance.playerNetwork.isLocalPlayer)
-
-                //owoSkin.StopPullingFish();
-                owoSkin.LOG("STOPPED FISHING!");
+                owoSkin.StartFishing();
             }
         }
 
@@ -365,8 +355,7 @@ namespace OWORaftMod
             public static void Postfix()
             {
                 //if(__instance.playerNetwork.isLocalPlayer)
-
-                owoSkin.LOG("DIGGING A HOLE!");
+                owoSkin.Feel("Digging", 2);
             }
         }
 
@@ -380,8 +369,6 @@ namespace OWORaftMod
             public static void Postfix(Slot_Equip equippedSlot)
             {
                 if (!owoSkin.canReceiveSensations) return;
-
-                owoSkin.LOG($"Equipping armor {equippedSlot.itemInstance.UniqueName}");
                 owoSkin.Feel("Equip", 2);
             }
         }
@@ -392,7 +379,7 @@ namespace OWORaftMod
             [HarmonyPostfix]
             public static void Postfix()
             {
-                owoSkin.LOG($"Unequipping armor");
+                owoSkin.Feel("Unequip", 2);
             }
         }
 
@@ -406,11 +393,11 @@ namespace OWORaftMod
 
                 if (state == false)
                 {
-                    owoSkin.LOG($"Unequip hat");
+                    owoSkin.Feel("Unequip", 2);
                 }
                 else
                 {
-                    owoSkin.LOG($"Equipping hat");
+                    owoSkin.Feel("Equip", 2);
                 }
             }
         }

@@ -15,10 +15,12 @@ namespace OWORaftMod
         public bool canReceiveSensations =  false;
 
         public Dictionary<string, Sensation> FeedbackMap = new Dictionary<string, Sensation>();
+
         private bool fishingIsActive;
         private bool hookIsActive;
         private bool drowingIsActive;
         private bool swimmingIsActive;
+        private bool bowIsActive;
 
         public OWOSkin()
         {
@@ -177,6 +179,7 @@ namespace OWORaftMod
 
         public void StopFishing()
         {
+            if (fishingIsActive == false) return;
             fishingIsActive = false;
         }
 
@@ -193,7 +196,7 @@ namespace OWORaftMod
 
         #region Hook
 
-        public void StarHook()
+        public void StartHook()
         {
             if (hookIsActive) return;
 
@@ -203,6 +206,7 @@ namespace OWORaftMod
 
         public void StopHook()
         {
+            if (hookIsActive == false) return;
             hookIsActive = false;
         }
 
@@ -229,6 +233,7 @@ namespace OWORaftMod
 
         public void StopDrowning()
         {
+            if(drowingIsActive == false) return;
             drowingIsActive = false;
         }
 
@@ -255,6 +260,7 @@ namespace OWORaftMod
 
         public void StopSwimming()
         {
+            if(swimmingIsActive == false) return;
             swimmingIsActive = false;
         }
 
@@ -268,6 +274,32 @@ namespace OWORaftMod
         }
 
         #endregion Swimming
+
+        #region Bow
+        public void StartBow()
+        {
+            if (bowIsActive) return;
+
+            bowIsActive = true;
+            SwimmingFuncAsync();
+        }
+
+        public void StopBow()
+        {
+            if (bowIsActive == false) return;
+            bowIsActive = false;
+        }
+
+        public async Task BowFuncAsync()
+        {
+            while (bowIsActive)
+            {
+                Feel("Bow Pull", 0);
+                await Task.Delay(300);
+            }
+        } 
+        #endregion
+
 
         #endregion Loops
 
