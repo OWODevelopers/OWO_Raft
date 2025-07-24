@@ -12,7 +12,7 @@ namespace OWORaftMod
     {
         private string owoPath = "\\mods\\OWO";
         public bool suitEnabled = false;
-        public bool isGameUnpaused = true;
+        public bool canReceiveSensations =  false;
 
         public Dictionary<string, Sensation> FeedbackMap = new Dictionary<string, Sensation>();
         private bool fishingIsActive;
@@ -282,7 +282,7 @@ namespace OWORaftMod
 
         public bool CanFeel()
         {
-            return suitEnabled && isGameUnpaused;
+            return suitEnabled;
         }
     }
 }

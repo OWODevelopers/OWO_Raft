@@ -1,7 +1,8 @@
+using System;
+using UnityEngine;
+
 using HarmonyLib;
 using HMLLibrary;
-using UnityEngine;
-using UnityEngine.Assertions.Must;
 
 namespace OWORaftMod
 {
@@ -28,6 +29,19 @@ namespace OWORaftMod
 
         #region PERSON CONTROLLER
 
+        [HarmonyPatch(typeof(PlayerAnimator), "SetAnimation", new Type[] { typeof(PlayerAnimation), typeof(bool) })]
+        public class Patch_SetAnimation
+        {
+            [HarmonyPostfix]
+            public static void Postfix(PlayerAnimation animation, bool triggering)
+            {
+                if (animation == PlayerAnimation.Trigger_Jump)
+                {
+                    owoSkin.LOG($"JUMPED!");
+                }
+            }
+        }
+
         [HarmonyPatch(typeof(PersonController), "ResetJump")]
         public class Patch_ResetJump
         {
@@ -49,10 +63,36 @@ namespace OWORaftMod
                 owoSkin.LOG($"Controller: {newType}");
                 switch (newType)
                 {
-                    //TODO
+                    //TODO: Swimming controller indicates player is swimming
                 }
             }
         }
+
+        [HarmonyPatch(typeof(Paddle), "PaddlePaddle")]
+        public class Patch_PaddlePaddle
+        {
+            [HarmonyPostfix]
+            public static void Postfix(Vector3 position, Vector3 direction, float force)
+            {
+                owoSkin.LOG($"PADDLE!");
+            }
+        }
+
+        #endregion
+
+        #region GAME MANAGER
+
+        [HarmonyPatch(typeof(GameManager), "OnWorldRecievedLate")]
+        public class Patch_OnWorldReceivedLate
+        {
+            [HarmonyPostfix]
+            public static void Postfix()
+            {
+                owoSkin.LOG($"WORLD LOADED!");
+                owoSkin.canReceiveSensations = true;
+            }
+        }
+
         #endregion
 
         #region PLAYER STATS
@@ -92,9 +132,6 @@ namespace OWORaftMod
             [HarmonyPostfix]
             public static void Postfix(PlayerStats __instance)
             {
-                if (__instance.IsDead)
-                    return;
-
                 owoSkin.LOG("DEATH POST");
             }
         }
@@ -132,6 +169,25 @@ namespace OWORaftMod
         }
         #endregion
 
+        #region CRAFT
+
+        [HarmonyPatch(typeof(CraftingMenu), "CraftItem")]
+        public class Patch_CraftItem
+        {
+            [HarmonyPostfix]
+            public static void Postfix(CraftingMenu __instance)
+            {
+                //if(__instance.playerNetwork.isLocalPlayer)
+
+                if (__instance.selectedRecipeBox.ItemToCraft == null)
+                    return;
+
+                owoSkin.LOG($"CRAFTED {__instance.selectedRecipeBox.ItemToCraft}!");
+            }
+        }
+
+        #endregion
+
         #region ITEM COLLECTOR
         [HarmonyPatch(typeof(ItemCollector), "CollectItem")]
         public class Patch_CollectItem
@@ -142,6 +198,23 @@ namespace OWORaftMod
                 //if(__instance.playerNetwork.isLocalPlayer)
 
                 owoSkin.LOG("YOU COLLECTED WITH HOOK!");
+            }
+        }
+
+        [HarmonyPatch(typeof(Pickup), "PickupItem", new Type[] { typeof(PickupItem), typeof(bool), typeof(bool) })]
+        public class Patch_PickupItem
+        {
+            [HarmonyPostfix]
+            public static void Postfix(PickupItem pickup, bool forcePickup, bool triggerHandAnimation)
+            {
+                if (!forcePickup && !pickup.canBePickedUp)
+                {
+                    return;
+                }
+
+                //if(__instance.playerNetwork.isLocalPlayer)
+
+                owoSkin.LOG("PICKED UP ITEM!");
             }
         }
         #endregion
@@ -270,41 +343,64 @@ namespace OWORaftMod
 
         #endregion
 
-        #region ARMOR
+        #region SHOVEL
+
+        [HarmonyPatch(typeof(Shovel), "DigDown")]
+        public class Patch_DigDown
+        {
+            [HarmonyPostfix]
+            public static void Postfix()
+            {
+                //if(__instance.playerNetwork.isLocalPlayer)
+
+                owoSkin.LOG("DIGGING A HOLE!");
+            }
+        }
+
+        #endregion
+
+        #region EQUIPMENT
         [HarmonyPatch(typeof(Equipment_ArmorPiece), "Equip")]
-        public class Patch_Equip
+        public class Patch_EquipArmor
         {
             [HarmonyPostfix]
             public static void Postfix(Slot_Equip equippedSlot)
             {
-                owoSkin.LOG($"Equipping item {equippedSlot.itemInstance.UniqueName}");
+                if (!owoSkin.canReceiveSensations) return;
+
+                owoSkin.LOG($"Equipping armor {equippedSlot.itemInstance.UniqueName}");
                 owoSkin.Feel("Equip", 2);
             }
         }
 
         [HarmonyPatch(typeof(Equipment_ArmorPiece), "UnEquip")]
-        public class Patch_UnEquip
+        public class Patch_UnEquipArmor
         {
             [HarmonyPostfix]
             public static void Postfix()
             {
-                owoSkin.LOG($"Unequipping item");
+                owoSkin.LOG($"Unequipping armor");
             }
         }
-        #endregion
 
-        #region BLOCKS
+        [HarmonyPatch(typeof(Equipment_Hat), "SetModelState")]
+        public class Patch_EquipHat
+        {
+            [HarmonyPostfix]
+            public static void Postfix(bool state)
+            {
+                if (!owoSkin.canReceiveSensations) return;
 
-        //[HarmonyPatch(typeof(BlockCreator), "CreateBlock")]
-        //public class Patch_CreateBlock
-        //{
-        //    [HarmonyPostfix]
-        //    public static void Postfix(Item_Base blockItem, Vector3 localBuildPosition, Vector3 localBuildRotation, DPS dpsType, int hotslotIndex, bool replicating, uint blockObjectIndex, uint networkedObjectIndex, uint networkedBehaviourIndex)
-        //    {
-        //        owoSkin.LOG($"Placed {blockItem.UniqueName}");
-        //    }
-        //}
-
+                if (state == false)
+                {
+                    owoSkin.LOG($"Unequip hat");
+                }
+                else
+                {
+                    owoSkin.LOG($"Equipping hat");
+                }
+            }
+        }
         #endregion
     }
 }
