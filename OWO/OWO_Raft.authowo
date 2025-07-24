@@ -1,1 +1,16 @@
-0~Template~100,1,90,0,0,0,|0%100~weapon-0~
+0~Landing~100,1,90,0,0,0,|0%100~weapon-0~#
+1~Swimming~100,1,90,0,0,0,|0%100~weapon-0~#
+2~Splash~100,1,90,0,0,0,|0%100~weapon-0~#
+3~String Bow~100,1,90,0,0,0,|0%100~weapon-0~#
+4~Bow Release~100,1,90,0,0,0,|0%100~weapon-0~#
+5~Rod Throw~100,1,90,0,0,0,|0%100~weapon-0~#
+6~Fishing~100,1,90,0,0,0,|0%100~weapon-0~#
+7~Hook Throw~100,1,90,0,0,0,|0%100~weapon-0~#
+8~Object Attach~100,1,90,0,0,0,|0%100~weapon-0~#
+9~Drowning~100,1,90,0,0,0,|0%100~weapon-0~#
+10~Equip~100,1,90,0,0,0,|0%100~weapon-0~#
+11~Unequip~100,1,90,0,0,0,|0%100~weapon-0~#
+12~Craft~100,1,90,0,0,0,|0%100~weapon-0~#
+13~Consume~100,1,90,0,0,0,|0%100~weapon-0~Health#
+14~Hurt~100,1,90,0,0,0,|0%100~weapon-0~Health#
+15~Death~100,1,90,0,0,0,|0%100~weapon-0~Health
