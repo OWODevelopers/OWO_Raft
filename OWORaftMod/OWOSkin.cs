@@ -12,13 +12,15 @@ namespace OWORaftMod
     {
         private string owoPath = "\\mods\\OWO";
         public bool suitEnabled = false;
-        public bool isGameUnpaused = true;
+        public bool canReceiveSensations =  false;
 
         public Dictionary<string, Sensation> FeedbackMap = new Dictionary<string, Sensation>();
+
         private bool fishingIsActive;
         private bool hookIsActive;
         private bool drowingIsActive;
         private bool swimmingIsActive;
+        private bool bowIsActive;
 
         public OWOSkin()
         {
@@ -137,6 +139,7 @@ namespace OWORaftMod
 
         public void Feel(String key, int Priority = 0, int intensity = 0)
         {
+            LOG($"{key}");
             Sensation toSend = GetBackedId(key);
             if (toSend == null || !CanFeel()) return;
 
@@ -177,6 +180,7 @@ namespace OWORaftMod
 
         public void StopFishing()
         {
+            if (fishingIsActive == false) return;
             fishingIsActive = false;
         }
 
@@ -193,7 +197,7 @@ namespace OWORaftMod
 
         #region Hook
 
-        public void StarHook()
+        public void StartHook()
         {
             if (hookIsActive) return;
 
@@ -203,6 +207,7 @@ namespace OWORaftMod
 
         public void StopHook()
         {
+            if (hookIsActive == false) return;
             hookIsActive = false;
         }
 
@@ -229,6 +234,7 @@ namespace OWORaftMod
 
         public void StopDrowning()
         {
+            if(drowingIsActive == false) return;
             drowingIsActive = false;
         }
 
@@ -236,7 +242,7 @@ namespace OWORaftMod
         {
             while (drowingIsActive)
             {
-                Feel("Drowning", 0);
+                Feel("Drowning", 1);
                 await Task.Delay(200);
             }
         }
@@ -255,6 +261,7 @@ namespace OWORaftMod
 
         public void StopSwimming()
         {
+            if(swimmingIsActive == false) return;
             swimmingIsActive = false;
         }
 
@@ -269,6 +276,32 @@ namespace OWORaftMod
 
         #endregion Swimming
 
+        #region Bow
+        public void StartBow()
+        {
+            if (bowIsActive) return;
+
+            bowIsActive = true;
+            BowFuncAsync();
+        }
+
+        public void StopBow()
+        {
+            if (bowIsActive == false) return;
+            bowIsActive = false;
+        }
+
+        public async Task BowFuncAsync()
+        {
+            while (bowIsActive)
+            {
+                Feel("Bow Pull", 0);
+                await Task.Delay(300);
+            }
+        } 
+        #endregion
+
+
         #endregion Loops
 
         public void StopAllHapticFeedback()
@@ -277,12 +310,13 @@ namespace OWORaftMod
             StopHook();
             StopDrowning();
             StopSwimming();
+            StopBow();
             OWO.Stop();
         }
 
         public bool CanFeel()
         {
-            return suitEnabled && isGameUnpaused;
+            return suitEnabled;
         }
     }
 }
