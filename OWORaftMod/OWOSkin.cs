@@ -13,13 +13,13 @@ namespace OWORaftMod
         private string owoPath = "\\mods\\OWO";
         public bool suitEnabled = false;
         public bool isGameUnpaused = true;
+        public bool SwimmingEffectActive = false;
 
         public Dictionary<string, Sensation> FeedbackMap = new Dictionary<string, Sensation>();
-        private bool fallingIsActive;
-        private bool wallSlidingIsActive;
-        private bool chargingIsActive;
-        private bool cycloneIsActive;
-        private bool superDashIsActive;
+        private bool fishingIsActive;
+        private bool hookIsActive;
+        private bool drowingIsActive;
+        private bool swimmingIsActive;
 
         public OWOSkin()
         {
@@ -166,145 +166,118 @@ namespace OWORaftMod
 
         #region Loops
 
-        #region Falling
+        #region Fishing
 
-        public void StartFalling()
+        public void StartFishing()
         {
-            if (fallingIsActive) return;
+            if (fishingIsActive) return;
 
-            fallingIsActive = true;
-            FallingFuncAsync();
+            fishingIsActive = true;
+            FishingFuncAsync();
         }
 
-        public void StopFalling()
+        public void StopFishing()
         {
-            fallingIsActive = false;
+            fishingIsActive = false;
         }
 
-        public async Task FallingFuncAsync()
+        public async Task FishingFuncAsync()
         {
-            while (fallingIsActive)
+            while (fishingIsActive)
             {
-                Feel("Falling", 0);
+                Feel("Fishing", 0);
                 await Task.Delay(200);
             }
         }
 
-        #endregion Falling
+        #endregion Fishing
 
-        #region Sliding
+        #region Hook
 
-        public void StarSliding()
+        public void StarHook()
         {
-            if (wallSlidingIsActive) return;
+            if (hookIsActive) return;
 
-            wallSlidingIsActive = true;
-            SlidingFuncAsync();
+            hookIsActive = true;
+            HookFuncAsync();
         }
 
-        public void StopSliding()
+        public void StopHook()
         {
-            wallSlidingIsActive = false;
+            hookIsActive = false;
         }
 
-        public async Task SlidingFuncAsync()
+        public async Task HookFuncAsync()
         {
-            while (wallSlidingIsActive)
+            while (hookIsActive)
             {
-                Feel("Wall Slide", 0);
+                Feel("Object Attach", 0);
                 await Task.Delay(200);
             }
         }
 
-        #endregion Falling
+        #endregion Fishing
 
-        #region Charging
+        #region Drowning
 
-        public void StartCharging()
+        public void StartDrowning()
         {
-            if (chargingIsActive) return;
+            if (drowingIsActive) return;
 
-            chargingIsActive = true;
-            ChargingFuncAsync();
+            drowingIsActive = true;
+            DrowningFuncAsync();
         }
 
-        public void StopCharging()
+        public void StopDrowning()
         {
-            chargingIsActive = false;
+            drowingIsActive = false;
         }
 
-        public async Task ChargingFuncAsync()
+        public async Task DrowningFuncAsync()
         {
-            while (chargingIsActive)
+            while (drowingIsActive)
             {
-                Feel("Charging", 0);
+                Feel("Drowning", 0);
                 await Task.Delay(200);
             }
         }
 
-        #endregion Charging
+        #endregion Drowning
 
-        #region Cyclone
+        #region Swimming
 
-        public void StartCyclone()
+        public void StartSwimming()
         {
-            if (cycloneIsActive) return;
+            if (swimmingIsActive && !SwimmingEffectActive) return;
 
-            cycloneIsActive = true;
-            CycloneFuncAsync();
+            swimmingIsActive = true;
+            SwimmingFuncAsync();
         }
 
-        public void StopCyclone()
+        public void StopSwimming()
         {
-            cycloneIsActive = false;
+            swimmingIsActive = false;
         }
 
-        public async Task CycloneFuncAsync()
+        public async Task SwimmingFuncAsync()
         {
-            while (cycloneIsActive)
+            while (swimmingIsActive)
             {
-                Feel("Cyclone", 0);
+                Feel("Swimming", 0);
                 await Task.Delay(300);
             }
         }
 
-        #endregion Cyclone
-
-        #region SuperDash
-
-        public void StartSuperDash()
-        {
-            if (superDashIsActive) return;
-
-            superDashIsActive = true;
-            SuperDashFuncAsync();
-        }
-
-        public void StopSuperDash()
-        {
-            superDashIsActive = false;
-        }
-
-        public async Task SuperDashFuncAsync()
-        {
-            while (superDashIsActive)
-            {
-                Feel("Super Dash", 0);
-                await Task.Delay(200);
-            }
-        }
-
-        #endregion SuperDash
+        #endregion Swimming
 
         #endregion Loops
 
         public void StopAllHapticFeedback()
         {
-            StopFalling();
-            StopSliding();
-            StopCharging();
-            StopCyclone();
-            StopSuperDash();
+            StopFishing();
+            StopHook();
+            StopDrowning();
+            StopSwimming();
             OWO.Stop();
         }
 
