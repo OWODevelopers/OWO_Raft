@@ -13,7 +13,6 @@ namespace OWORaftMod
         private string owoPath = "\\mods\\OWO";
         public bool suitEnabled = false;
         public bool isGameUnpaused = true;
-        public bool SwimmingEffectActive = false;
 
         public Dictionary<string, Sensation> FeedbackMap = new Dictionary<string, Sensation>();
         private bool fishingIsActive;
@@ -248,7 +247,7 @@ namespace OWORaftMod
 
         public void StartSwimming()
         {
-            if (swimmingIsActive && !SwimmingEffectActive) return;
+            if (swimmingIsActive) return;
 
             swimmingIsActive = true;
             SwimmingFuncAsync();
