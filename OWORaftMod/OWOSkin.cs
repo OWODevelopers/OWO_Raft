@@ -139,6 +139,7 @@ namespace OWORaftMod
 
         public void Feel(String key, int Priority = 0, int intensity = 0)
         {
+            LOG($"{key}");
             Sensation toSend = GetBackedId(key);
             if (toSend == null || !CanFeel()) return;
 
@@ -241,7 +242,7 @@ namespace OWORaftMod
         {
             while (drowingIsActive)
             {
-                Feel("Drowning", 0);
+                Feel("Drowning", 1);
                 await Task.Delay(200);
             }
         }
@@ -281,7 +282,7 @@ namespace OWORaftMod
             if (bowIsActive) return;
 
             bowIsActive = true;
-            SwimmingFuncAsync();
+            BowFuncAsync();
         }
 
         public void StopBow()

@@ -11,6 +11,8 @@ namespace OWORaftMod
         public static OWOSkin owoSkin;
         private Harmony harmony;
 
+        private static ControllerType controllerType;
+
         public void Start()
         {
             owoSkin = new OWOSkin();
@@ -57,10 +59,14 @@ namespace OWORaftMod
         [HarmonyPatch(typeof(PersonController), "SwitchControllerType")]
         public class Patch_SwitchControllerType
         {
+
             [HarmonyPostfix]
             public static void Postfix(ControllerType newType)
             {
-                owoSkin.LOG($"Controller: {newType}");
+                if (newType == controllerType)
+                    return;
+                controllerType = newType;
+
                 switch (newType)
                 {
                     case ControllerType.Water:
@@ -190,8 +196,6 @@ namespace OWORaftMod
             [HarmonyPostfix]
             public static void Postfix(CraftingMenu __instance)
             {
-                //if(__instance.playerNetwork.isLocalPlayer)
-
                 if (__instance.selectedRecipeBox.ItemToCraft == null)
                     return;
 
@@ -206,7 +210,7 @@ namespace OWORaftMod
         public class Patch_CollectItem
         {
             [HarmonyPostfix]
-            public static void Postfix(PickupItem_Networked item)
+            public static void Postfix(ItemCollector __instance, PickupItem_Networked item)
             {
                 //if(__instance.playerNetwork.isLocalPlayer)
                 owoSkin.StartHook();
@@ -340,7 +344,7 @@ namespace OWORaftMod
             public static void Postfix()
             {
                 //if(__instance.playerNetwork.isLocalPlayer)
-                owoSkin.StartFishing();
+                owoSkin.StopFishing();
             }
         }
 
