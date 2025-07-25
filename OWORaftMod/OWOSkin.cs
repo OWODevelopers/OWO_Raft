@@ -139,7 +139,6 @@ namespace OWORaftMod
 
         public void Feel(String key, int Priority = 0, int intensity = 0)
         {
-            LOG($"{key}");
             Sensation toSend = GetBackedId(key);
             if (toSend == null || !CanFeel()) return;
 
