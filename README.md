@@ -20,7 +20,7 @@ B) Install it by searching 'OWO_Raft' in [Raft mods page](https://www.raftmoddin
 - Once the Game Menu is opened, you can activate the mod with F9, and click on the "Load Mod" button in OWO_RAFT item. Once the status shows 'Running', connect to it via My OWO app.
 - Now you can feel the experience of being stranded and chased by sharks on your OWO Skin! 
 
-# Featured effect
+# Featured effects
 - Bow Pull
 - Bow Release
 - Consume
