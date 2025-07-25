@@ -21,28 +21,28 @@ B) Install it by searching 'OWO_Raft' in [Raft mods page](https://www.raftmoddin
 - Now you can feel the experience of being stranded and chased by sharks on your OWO Skin! 
 
 # Featured effect
-Bow Pull
-Bow Release
-Consume
-Craft 
-Death 
-Digging 
-Drowning  
-Equip 
-Fishing 
-Hook Throw 
-Hurt 
-Jump 
-Landing 
-Melee Hit 
-Melee 
-Object Attach 
-Paddeling 
-Pickup Item 
-Rod Throw 
-Splash 
-Swimming 
-Unequip 
+- Bow Pull
+- Bow Release
+- Consume
+- Craft 
+- Death 
+- Digging 
+- Drowning  
+- Equip 
+- Fishing 
+- Hook Throw 
+- Hurt 
+- Jump 
+- Landing 
+- Melee Hit 
+- Melee 
+- Object Attach 
+- Paddeling 
+- Pickup Item 
+- Rod Throw 
+- Splash 
+- Swimming 
+- Unequip 
 
 # Manual Connection
 If you are having trouble with the automatic connection, create a .txt file called OWO_Manual_IP.txt  
