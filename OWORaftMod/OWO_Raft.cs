@@ -212,7 +212,6 @@ namespace OWORaftMod
             [HarmonyPostfix]
             public static void Postfix(ItemCollector __instance, PickupItem_Networked item)
             {
-                //if(__instance.playerNetwork.isLocalPlayer)
                 owoSkin.StartHook();
             }
         }
@@ -228,7 +227,6 @@ namespace OWORaftMod
                     return;
                 }
 
-                //if(__instance.playerNetwork.isLocalPlayer)
                 owoSkin.Feel("Pickup Item", 2);
             }
         }
@@ -242,8 +240,6 @@ namespace OWORaftMod
             [HarmonyPostfix]
             public static void Postfix()
             {
-                //if(__instance.playerNetwork.isLocalPlayer)
-
                 owoSkin.Feel("Melee", 2);
             }
         }
@@ -254,7 +250,6 @@ namespace OWORaftMod
             [HarmonyPostfix]
             public static void Postfix(RaycastHit hit, Network_Entity entity)
             {
-                //if(__instance.playerNetwork.isLocalPlayer)
                 if (entity == null)
                     return;
 
@@ -268,7 +263,6 @@ namespace OWORaftMod
             [HarmonyPostfix]
             public static void Postfix()
             {
-                //if(__instance.playerNetwork.isLocalPlayer)
                 owoSkin.StartBow();
             }
         }
@@ -279,7 +273,6 @@ namespace OWORaftMod
             [HarmonyPostfix]
             public static void Postfix()
             {
-                //if(__instance.playerNetwork.isLocalPlayer)
                 owoSkin.StopBow();
                 owoSkin.Feel("Bow Release", 2);
             }
@@ -295,7 +288,6 @@ namespace OWORaftMod
             [HarmonyPostfix]
             public static void Postfix(Hook __instance)
             {
-                //if(__instance.playerNetwork.isLocalPlayer)
                 owoSkin.Feel("Hook Throw", 2);
             }
         }
@@ -306,7 +298,6 @@ namespace OWORaftMod
             [HarmonyPostfix]
             public static void Postfix()
             {
-                //if(__instance.playerNetwork.isLocalPlayer)
                 owoSkin.StopHook();
             }
         }
@@ -321,7 +312,6 @@ namespace OWORaftMod
             [HarmonyPostfix]
             public static void Postfix()
             {
-                //if(__instance.playerNetwork.isLocalPlayer)
                 owoSkin.Feel("Rod Throw", 2);
             }
         }
@@ -332,7 +322,6 @@ namespace OWORaftMod
             [HarmonyPostfix]
             public static void Postfix()
             {
-                //if(__instance.playerNetwork.isLocalPlayer)
                 owoSkin.StartFishing();
             }
         }
@@ -343,7 +332,6 @@ namespace OWORaftMod
             [HarmonyPostfix]
             public static void Postfix()
             {
-                //if(__instance.playerNetwork.isLocalPlayer)
                 owoSkin.StopFishing();
             }
         }
@@ -358,7 +346,6 @@ namespace OWORaftMod
             [HarmonyPostfix]
             public static void Postfix()
             {
-                //if(__instance.playerNetwork.isLocalPlayer)
                 owoSkin.Feel("Digging", 2);
             }
         }
