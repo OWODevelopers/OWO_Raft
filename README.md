@@ -15,7 +15,7 @@ The mod uses Raft Mod Loader. To proceed with the installation, please follow th
 In order to download the mod, you can either:
 - A) Download the [latest release of this mod](https://github.com/OWODevelopers/OWO_Raft/releases), using the folder explorer, go to the game folder and paste the content of the zip inside “..\Raft\mods”.
 - B) Install it by searching 'OWO_Raft' in [Raft mods page](https://www.raftmodding.com/mods).
-- C) Download the mod from [Nexus Mod page](https://www.nexusmods.com/raft/mods/105).
+- C) Download the mod from [Nexus Mod page](https://www.nexusmods.com/raft/mods/114).
 
 - On Raft Mod Loader select the option “Play”
 - Once the Game Menu is opened, you can activate the mod with F9, and click on the "Load Mod" button in OWO_RAFT item. Once the status shows 'Running', connect to it via My OWO app.
